@@ -17,6 +17,8 @@ pyisaf
      :target: https://pyup.io/repos/github/naglis/pyisaf/
      :alt: Updates
 
+.. image:: https://codecov.io/gh/naglis/pyisaf/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/naglis/pyisaf
 
 Python library for i.SAF VAT report generation.
 
