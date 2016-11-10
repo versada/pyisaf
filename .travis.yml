@@ -20,12 +20,13 @@ virtualenv:
   system_site_packages: true
 
 install:
-    - pip install -r requirements.txt
+    - pip install -r requirements_dev.txt
 
 # command to run tests, e.g. python setup.py test
 script: python -m unittest discover
 
 after_success:
+  - coverage run --source pyisaf -m unittest discover
   - bash <(curl -s https://codecov.io/bash)
 # After you create the Github repo and add it to Travis, run the
 # travis_pypi_setup.py script to finish PyPI deployment setup
