@@ -10,6 +10,13 @@ class ISAFBuilder:
     __metaclass__ = abc.ABCMeta
     ISAF_VERSION = None
 
+    def __init__(self, isaf):
+        self._isaf = isaf
+
+    @property
+    def isaf(self):
+        return self._isaf
+
     def register_namespaces(self):
         namespaces = {
             '': 'http://www.vmi.lt/cms/imas/isaf',
@@ -19,9 +26,9 @@ class ISAFBuilder:
             ElementTree.register_namespace(prefix, uri)
 
     @abc.abstractmethod
-    def _build_header(self, isaf):
+    def _build_header(self):
         '''Builds and returns Header element.'''
 
     @abc.abstractmethod
-    def _build_isaf_file(self, isaf):
+    def _build_isaf_file(self):
         '''Builds and returns the iSAFFile element.'''
