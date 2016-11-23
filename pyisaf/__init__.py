@@ -4,6 +4,6 @@
 
 
 from .schema_v1_2 import schema_v1_2
-__all__ = ['schema_v1_2']
+from .builder import ISAF12Builder
 
-# __all__ = ['ISAF', '__version__']
+__all__ = ['ISAF12Builder', 'schema_v1_2']
