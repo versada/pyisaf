@@ -3,56 +3,34 @@ from __future__ import unicode_literals
 
 import datetime
 
-from schema import And, Optional, Or, Regex, Schema, Use
+from schema import And, Optional, Or, Schema, Use
 
-from pyisaf.utils import ustr
 from pyisaf.validators import (
-    decimal,
-    max_int_digits,
-    max_length,
-    min_length,
     non_negative,
 )
-
-
-ISAFDataType = Schema(Or('F', 'P', 'S'))
-ISAFlongtextType = Schema(And(ustr, max_length(256)))
-ISAFlongtextTypeNotEmpty = Schema(And(ISAFlongtextType, min_length(1)))
-ISAFmiddletextType = Schema(And(ustr, max_length(24)))
-ISAFmiddle1textType = Schema(And(ustr, max_length(35)))
-ISAFmiddle1textTypeNotEmpty = Schema(And(ISAFmiddle1textType, min_length(1)))
-ISAFmiddle2textType = Schema(And(ustr, max_length(70)))
-ISAFmiddle2textTypeNotEmpty = Schema(And(ISAFmiddle2textType, min_length(1)))
-ISAFRegistrationNumberType = Schema(
-    And(Use(int), non_negative, max_int_digits(11)))
-ISAFPartNumberType = Schema(
-    And(ustr, Regex(r'[A-Z0-9_]*'), max_length(20), min_length(1)))
-ISAFCountryCodeISO = Schema(And(ustr, max_length(2)))
-ISAFshorttext1Type = Schema(Or('G', 'V'))
-ISAFshorttext2Type = Schema(Or('SF', 'DS', 'KS', 'VS', 'VD', 'VK', 'AN', ''))
-ISAFSpecialTaxationType = Schema(Or('T', ''))
-ISAFDateType2 = Schema(And(
-    datetime.date,
-    lambda v: datetime.date(1990, 1, 1) <= v <= datetime.date(2100, 1, 1)
-))
-ISAFDateType3 = Schema(And(
-    datetime.date,
-    lambda v: datetime.date(2016, 7, 1) <= v <= datetime.date(2100, 1, 1)
-))
-ISAFDateType4 = Schema(And(
-    datetime.date,
-    lambda v: datetime.date(2011, 1, 1) <= v <= datetime.date(2100, 1, 1)
-))
-ISAFmonetaryType = Schema(And(ustr, decimal(18)))
-ISAFTaxCodeType = Schema(
-    And(
-        ustr,
-        min_length(4),
-        max_length(6),
-        Regex(r'^PVM([0-9])*'),
-    )
+from .types import (
+    ISAFCountryCodeISO,
+    ISAFDataType,
+    ISAFDateType2,
+    ISAFDateType3,
+    ISAFDateType4,
+    ISAFPartNumberType,
+    ISAFRegistrationNumberType,
+    ISAFSpecialTaxationType,
+    ISAFTaxCodeType,
+    ISAFlongtextType,
+    ISAFlongtextTypeNotEmpty,
+    ISAFmiddle1textType,
+    ISAFmiddle1textTypeNotEmpty,
+    ISAFmiddle2textType,
+    ISAFmiddle2textTypeNotEmpty,
+    ISAFmiddletextType,
+    ISAFmonetaryType,
+    ISAFquantityType,
+    ISAFshorttext1Type,
+    ISAFshorttext2Type,
 )
-ISAFquantityType = Schema(And(ustr, decimal(5)))
+
 
 selection_criteria = Schema({
     'selection_start_date': datetime.date,
