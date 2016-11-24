@@ -1,7 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+import re
 
 from setuptools import setup
+
+
+def get_version(filename):
+    with open(filename) as fh:
+        metadata = dict(re.findall(r'__([a-z]+)__ = \'([^\']+)\'', fh.read()))
+        return metadata['version']
+
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -19,7 +29,7 @@ test_requirements = [
 
 setup(
     name='pyisaf',
-    version='0.1.0',
+    version=get_version('pyisaf/__init__.py'),
     description='Python library for i.SAF VAT report generation.',
     long_description=readme + '\n\n' + history,
     author='Naglis Jonaitis',
