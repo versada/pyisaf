@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 import re
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
 
 def get_version(filename):
@@ -35,11 +35,7 @@ setup(
     author='Naglis Jonaitis',
     author_email='naglis@mailbox.org',
     url='https://github.com/naglis/pyisaf',
-    packages=[
-        'pyisaf',
-    ],
-    package_dir={'pyisaf':
-                 'pyisaf'},
+    packages=find_packages(exclude=['tests']),
     include_package_data=True,
     install_requires=requirements,
     license='BSD license',
