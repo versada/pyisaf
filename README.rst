@@ -9,26 +9,15 @@ pyisaf
 .. image:: https://img.shields.io/travis/naglis/pyisaf.svg
         :target: https://travis-ci.org/naglis/pyisaf
 
-.. image:: https://readthedocs.org/projects/pyisaf/badge/?version=latest
-        :target: https://pyisaf.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
-.. image:: https://pyup.io/repos/github/naglis/pyisaf/shield.svg
-     :target: https://pyup.io/repos/github/naglis/pyisaf/
-     :alt: Updates
-
 .. image:: https://codecov.io/gh/naglis/pyisaf/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/naglis/pyisaf
 
 Python library for i.SAF VAT report generation.
 
-**NOTE: This is still in development. Please do not use.**
-
 * Free software: BSD license
-* Documentation: https://pyisaf.readthedocs.io.
-
 
 Features
 --------
 
-* TODO
+* i.SAF data validation based on schema
+* i.SAF XML builder
