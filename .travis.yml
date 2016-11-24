@@ -5,31 +5,21 @@ cache:
   directories:
     - $HOME/.cache/pip
 
-python:
-    - "2.7"
-    - "3.5"
-
-virtualenv:
-  system_site_packages: true
+matrix:
+    include:
+        - python: 2.7
+          env: {TOX_ENV: py27}
+        - python: 3.5
+          env: {TOX_ENV: py35, COVERAGE: 1}
+        - python: 3.5
+          env: {TOX_ENV: flake8}
 
 install:
-    - pip install -r requirements.txt -r requirements_dev.txt
+    - pip install tox
+    - pip install --requirement requirements.txt
 
-# command to run tests, e.g. python setup.py test
-script: python -m unittest discover
+script:
+    - tox -e $TOX_ENV
 
 after_success:
-  - coverage run --source pyisaf -m unittest discover
-  - bash <(curl -s https://codecov.io/bash)
-# After you create the Github repo and add it to Travis, run the
-# travis_pypi_setup.py script to finish PyPI deployment setup
-#deploy:
-  #provider: pypi
-  #distributions: sdist bdist_wheel
-  #user: naglis
-  #password:
-    #secure: PLEASE_REPLACE_ME
-  #on:
-    #tags: true
-    #repo: naglis/pyisaf
-    #condition: $TOXENV == py27
+    - "[ ! -z $COVERAGE ] && bash <(curl -s https://codecov.io/bash) || true"
