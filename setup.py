@@ -10,7 +10,7 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'schema>=0.6.5,<0.7.0'
+    'schema>=0.6.5,<0.7.0',
 ]
 
 test_requirements = [
