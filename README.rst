@@ -1,7 +1,6 @@
-===============================
+=======
 pyisaf
-===============================
-
+=======
 
 .. image:: https://img.shields.io/pypi/v/pyisaf.svg
         :target: https://pypi.python.org/pypi/pyisaf
@@ -14,6 +13,7 @@ pyisaf
 
 Python library for i.SAF VAT report generation.
 
+* GitHub: https://github.com/naglis/pyisaf
 * Free software: BSD license
 
 Features

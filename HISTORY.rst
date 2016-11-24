@@ -1,8 +1,14 @@
-=======
+.. :changelog:
+
 History
-=======
+-------
 
-Unrealead (2016-11-10)
-------------------
+v0.1.2 (2016-11-24)
+~~~~~~~~~~~~~~~~~~~
 
-* Development started
+* Minor fixes in description
+
+v0.1.1 (2016-11-24)
+~~~~~~~~~~~~~~~~~~~
+
+* Initial version
