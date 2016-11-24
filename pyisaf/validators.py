@@ -21,7 +21,7 @@ def decimal(total_digits, fraction_digits=2):
 def max_int_digits(max_digits):
 
     def validator(v):
-        return len(list(int_to_digits(v))) <= max_digits
+        return len(int_to_digits(v)) <= max_digits
 
     return validator
 
