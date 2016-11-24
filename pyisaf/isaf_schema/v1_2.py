@@ -5,6 +5,8 @@ import datetime
 
 from schema import And, Optional, Or, Regex, Schema, Use
 
+from pyisaf.utils import ustr
+
 
 def int_to_digits(number):
     while number:
@@ -55,19 +57,19 @@ def decimal(total_digits, fraction_digits=2):
 
 
 ISAFDataType = Schema(Or('F', 'P', 'S'))
-ISAFlongtextType = Schema(And(str, max_length(256)))
+ISAFlongtextType = Schema(And(ustr, max_length(256)))
 ISAFlongtextTypeNotEmpty = Schema(And(ISAFlongtextType, min_length(1)))
-ISAFmiddletextType = Schema(And(str, max_length(24)))
-ISAFmiddle1textType = Schema(And(str, max_length(35)))
+ISAFmiddletextType = Schema(And(ustr, max_length(24)))
+ISAFmiddle1textType = Schema(And(ustr, max_length(35)))
 ISAFmiddle1textTypeNotEmpty = Schema(And(ISAFmiddle1textType, min_length(1)))
-ISAFmiddle2textType = Schema(And(str, max_length(70)))
+ISAFmiddle2textType = Schema(And(ustr, max_length(70)))
 ISAFmiddle2textTypeNotEmpty = Schema(And(ISAFmiddle2textType, min_length(1)))
 ISAFRegistrationNumberType = Schema(
     And(Use(int), non_negative, max_int_digits(11)))
 ISAFPartNumberType = Schema(
-    And(str, Regex(r'[A-Z0-9_]*'), max_length(20), min_length(1)))
-ISAFCountryCodeISO = Schema(And(str, max_length(2)))
-ISAFshorttext1Type = Schema(['G', 'V'])
+    And(ustr, Regex(r'[A-Z0-9_]*'), max_length(20), min_length(1)))
+ISAFCountryCodeISO = Schema(And(ustr, max_length(2)))
+ISAFshorttext1Type = Schema(Or('G', 'V'))
 ISAFshorttext2Type = Schema(Or('SF', 'DS', 'KS', 'VS', 'VD', 'VK', 'AN', ''))
 ISAFSpecialTaxationType = Schema(Or('T', ''))
 ISAFDateType2 = Schema(And(
@@ -82,16 +84,16 @@ ISAFDateType4 = Schema(And(
     datetime.date,
     lambda v: datetime.date(2011, 1, 1) <= v <= datetime.date(2100, 1, 1)
 ))
-ISAFmonetaryType = Schema(And(str, decimal(18)))
+ISAFmonetaryType = Schema(And(ustr, decimal(18)))
 ISAFTaxCodeType = Schema(
     And(
-        str,
+        ustr,
         min_length(4),
         max_length(6),
         Regex(r'^PVM([0-9])*'),
     )
 )
-ISAFquantityType = Schema(And(str, decimal(5)))
+ISAFquantityType = Schema(And(ustr, decimal(5)))
 
 selection_criteria = Schema({
     'selection_start_date': datetime.date,
@@ -188,7 +190,6 @@ sales_invoice = Schema({
     'special_taxation': ISAFSpecialTaxationType,
     'references': Schema([reference]),
     'vat_point_date': Schema(Or(None, ISAFDateType3)),
-    'registration_account_date': Schema(Or(None, ISAFDateType3)),
     'document_totals': Schema([sales_document_total]),
 })
 
