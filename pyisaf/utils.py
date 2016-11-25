@@ -9,7 +9,7 @@ PY3 = sys.version_info[0] == 3
 if PY3:
     ustr = str
     int_types = int
-else:
+else:  # pragma: no cover
     ustr = unicode  # noqa
     int_types = (int, long)  # noqa
 

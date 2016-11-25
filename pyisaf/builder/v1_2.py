@@ -35,7 +35,7 @@ class ISAF1_2Builder(ISAFBuilder):
         file_desc = SubElement(header, 'FileDescription')
         SubElement(file_desc, 'FileVersion').text = fd['file_version']
         SubElement(file_desc, 'FileDateCreated').text = (
-            fd['file_date_created'].isoformat()
+            fd['file_date_created'].replace(microsecond=0).isoformat()
         )
         SubElement(file_desc, 'DataType').text = fd['data_type']
         SubElement(file_desc, 'SoftwareCompanyName').text = (

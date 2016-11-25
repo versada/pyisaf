@@ -33,6 +33,11 @@ class TestISAF12Builder(unittest.TestCase):
         self.assertTagText(
             header, './FileDescription/FileVersion', 'iSAF1.2')
 
+    def test_build_header_sets_file_date_created(self):
+        header = self.builder._build_header()
+        self.assertTagText(
+            header, './FileDescription/FileDateCreated', '2016-11-02T12:31:59')
+
     def test_build_header_sets_data_type(self):
         header = self.builder._build_header()
         self.assertTagText(header, './FileDescription/DataType', 'F')
