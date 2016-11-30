@@ -14,6 +14,13 @@ def date_or_empty(v):
     return '' if v is None else v.strftime(DATE_FORMAT)
 
 
+def date_or_nil(elem, value):
+    if value is None:
+        elem.set('xsi:nil', 'true')
+    else:
+        elem.text = value.strftime(DATE_FORMAT)
+
+
 def str_or_empty(v):
     return '' if v is None else v
 
@@ -159,8 +166,8 @@ class ISAF1_2Builder(ISAFBuilder):
         SubElement(elem, 'TaxPercentage').text = str_or_empty(
             t.get('tax_percentage'))
         SubElement(elem, 'Amount').text = str_or_empty(t.get('amount'))
-        SubElement(elem, 'VATPointDate2').text = date_or_empty(
-            t.get('vat_point_date2'))
+        vat_point_date2_elem = SubElement(elem, 'VATPointDate2')
+        date_or_nil(vat_point_date2_elem, t.get('vat_point_date2'))
         return elem
 
     def _build_purchase_invoice(self, inv):
@@ -180,11 +187,14 @@ class ISAF1_2Builder(ISAFBuilder):
         for r in refs:
             ref_elem.append(self._build_invoice_reference(r))
 
-        SubElement(elem, 'VATPointDate').text = inv['vat_point_date'].strftime(
-            DATE_FORMAT
-        )
-        SubElement(elem, 'RegistrationAccountDate').text = (
-            inv['registration_account_date'].strftime(DATE_FORMAT)
+        vat_point_date_elem = SubElement(elem, 'VATPointDate')
+        date_or_nil(vat_point_date_elem, inv.get('vat_point_date'))
+
+        registration_account_date_elem = SubElement(
+            elem, 'RegistrationAccountDate')
+        date_or_nil(
+            registration_account_date_elem,
+            inv.get('registration_account_date'),
         )
 
         totals = SubElement(elem, 'DocumentTotals')
@@ -209,9 +219,8 @@ class ISAF1_2Builder(ISAFBuilder):
         for r in refs:
             ref_elem.append(self._build_invoice_reference(r))
 
-        SubElement(elem, 'VATPointDate').text = inv['vat_point_date'].strftime(
-            DATE_FORMAT
-        )
+        vat_point_date_elem = SubElement(elem, 'VATPointDate')
+        date_or_nil(vat_point_date_elem, inv.get('vat_point_date'))
 
         totals = SubElement(elem, 'DocumentTotals')
         for t in inv.get('document_totals', []):

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import copy
 import datetime
 import io
 import unittest
@@ -9,7 +10,7 @@ import xml.etree.ElementTree
 from pyisaf import ISAF1_2Builder, schema_v1_2
 from pyisaf.builder.base import DATE_FORMAT
 
-from .data import isaf_data
+from .data import isaf_data, purchase_invoices
 
 
 class TestISAF12Builder(unittest.TestCase):
@@ -130,3 +131,11 @@ class TestISAF12Builder(unittest.TestCase):
         self.assertEqual(len(isaf_xml.findall(xpath('./{%s}MasterFiles'))), 1)
         self.assertEqual(
             len(isaf_xml.findall(xpath('./{%s}SourceDocuments'))), 1)
+
+    def test_invoice_vat_point_date_None_rendered_has_attr_xsi_nil(self):
+        invoice = copy.deepcopy(purchase_invoices[0])
+        invoice['vat_point_date'] = None
+
+        invoice = self.builder._build_purchase_invoice(invoice)
+        vat_point_date_elem = invoice.findall('./VATPointDate')[0]
+        self.assertEqual(vat_point_date_elem.get('xsi:nil'), 'true')
