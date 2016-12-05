@@ -7,7 +7,7 @@ from xml.etree.ElementTree import Element, SubElement
 
 
 def int_or_empty(v):
-    return '' if v is None else '%d' % v
+    return '%d' % v if v else ''
 
 
 def date_or_empty(v):
@@ -72,16 +72,19 @@ class ISAF1_2Builder(ISAFBuilder):
         ss = mf.get('suppliers', [])
 
         elem = Element('MasterFiles')
-        customers = SubElement(elem, 'Customers')
-        for c in cs:
-            customers.append(self._build_customer_supplier(
-                c, 'Customer', 'CustomerID', 'customer_id')
-            )
-        suppliers = SubElement(elem, 'Suppliers')
-        for s in ss:
-            suppliers.append(self._build_customer_supplier(
-                s, 'Supplier', 'SupplierID', 'supplier_id')
-            )
+
+        if cs:
+            customers = SubElement(elem, 'Customers')
+            for c in cs:
+                customers.append(self._build_customer_supplier(
+                    c, 'Customer', 'CustomerID', 'customer_id')
+                )
+        if ss:
+            suppliers = SubElement(elem, 'Suppliers')
+            for s in ss:
+                suppliers.append(self._build_customer_supplier(
+                    s, 'Supplier', 'SupplierID', 'supplier_id')
+                )
         return elem
 
     def _build_source_documents(self):
@@ -91,17 +94,20 @@ class ISAF1_2Builder(ISAFBuilder):
         sps = sd.get('settlements_and_payments', [])
 
         elem = Element('SourceDocuments')
-        pis_elem = SubElement(elem, 'PurchaseInvoices')
-        for pi in pis:
-            pis_elem.append(self._build_purchase_invoice(pi))
+        if pis:
+            pis_elem = SubElement(elem, 'PurchaseInvoices')
+            for pi in pis:
+                pis_elem.append(self._build_purchase_invoice(pi))
 
-        sis_elem = SubElement(elem, 'SalesInvoices')
-        for si in sis:
-            sis_elem.append(self._build_sales_invoice(si))
+        if sis:
+            sis_elem = SubElement(elem, 'SalesInvoices')
+            for si in sis:
+                sis_elem.append(self._build_sales_invoice(si))
 
-        sps_elem = SubElement(elem, 'SettlementsAndPayments')
-        for sp in sps:
-            sps_elem.append(self._build_settlement_and_payment(sp))
+        if sps:
+            sps_elem = SubElement(elem, 'SettlementsAndPayments')
+            for sp in sps:
+                sps_elem.append(self._build_settlement_and_payment(sp))
 
         return elem
 

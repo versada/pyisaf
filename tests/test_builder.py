@@ -98,6 +98,31 @@ class TestISAF12Builder(unittest.TestCase):
         self.assertTagText(
             master, './Suppliers/Supplier[1]/Name', 'UAB "Įmonė"')
 
+    def test_builder_no_customers_Customers_tag_not_added(self):
+        isaf = copy.deepcopy(isaf_data)
+        isaf['master_files']['customers'] = []
+        validated_isaf = schema_v1_2.validate(isaf)
+        builder = ISAF1_2Builder(validated_isaf)
+        master = builder._build_master_files()
+        self.assertEqual(len(master.findall('./Customers')), 0)
+
+    def test_builder_no_suppliers_Suppliers_tag_not_added(self):
+        isaf = copy.deepcopy(isaf_data)
+        isaf['master_files']['suppliers'] = []
+        validated_isaf = schema_v1_2.validate(isaf)
+        builder = ISAF1_2Builder(validated_isaf)
+        master = builder._build_master_files()
+        self.assertEqual(len(master.findall('./Suppliers')), 0)
+
+    def test_builder_no_payments_SettlementsAndPayments_tag_not_added(self):
+        isaf = copy.deepcopy(isaf_data)
+        isaf['source_documents']['settlements_and_payments'] = []
+        validated_isaf = schema_v1_2.validate(isaf)
+        builder = ISAF1_2Builder(validated_isaf)
+        source_docs = builder._build_master_files()
+        self.assertEqual(
+            len(source_docs.findall('./SettlementsAndPayments')), 0)
+
     def test_builder_source_docs_adds_two_purchase_invoices(self):
         source_docs = self.builder._build_source_documents()
         self.assertEqual(
