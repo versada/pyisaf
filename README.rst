@@ -13,6 +13,8 @@ pyisaf
 
 Python library for i.SAF VAT report generation.
 
+Supported Python versions: 2.7, 3.5+
+
 * GitHub: https://github.com/naglis/pyisaf
 * Free software: BSD license
 
