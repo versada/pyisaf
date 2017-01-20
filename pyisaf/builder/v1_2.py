@@ -21,6 +21,13 @@ def date_or_nil(elem, value):
         elem.text = value.strftime(DATE_FORMAT)
 
 
+def str_or_nil(elem, value):
+    if value is None:
+        elem.set('xsi:nil', 'true')
+    else:
+        elem.text = value
+
+
 def str_or_empty(v):
     return '' if v is None else v
 
@@ -159,21 +166,19 @@ class ISAF1_2Builder(ISAFBuilder):
     def _build_purchase_invoice_total(self, t):
         elem = Element('DocumentTotal')
         SubElement(elem, 'TaxableValue').text = t['taxable_value']
-        SubElement(elem, 'TaxCode').text = str_or_empty(t.get('tax_code'))
-        SubElement(elem, 'TaxPercentage').text = str_or_empty(
-            t.get('tax_percentage'))
-        SubElement(elem, 'Amount').text = str_or_empty(t.get('amount'))
+        str_or_nil(SubElement(elem, 'TaxCode'), t.get('tax_code'))
+        str_or_nil(SubElement(elem, 'TaxPercentage'), t.get('tax_percentage'))
+        str_or_nil(SubElement(elem, 'Amount'), t.get('amount'))
         return elem
 
     def _build_sales_invoice_total(self, t):
         elem = Element('DocumentTotal')
         SubElement(elem, 'TaxableValue').text = t['taxable_value']
-        SubElement(elem, 'TaxCode').text = str_or_empty(t.get('tax_code'))
-        SubElement(elem, 'TaxPercentage').text = str_or_empty(
-            t.get('tax_percentage'))
-        SubElement(elem, 'Amount').text = str_or_empty(t.get('amount'))
-        vat_point_date2_elem = SubElement(elem, 'VATPointDate2')
-        date_or_nil(vat_point_date2_elem, t.get('vat_point_date2'))
+        str_or_nil(SubElement(elem, 'TaxCode'), t.get('tax_code'))
+        str_or_nil(SubElement(elem, 'TaxPercentage'), t.get('tax_percentage'))
+        str_or_nil(SubElement(elem, 'Amount'), t.get('amount'))
+        date_or_nil(
+            SubElement(elem, 'VATPointDate2'), t.get('vat_point_date2'))
         return elem
 
     def _build_purchase_invoice(self, inv):
