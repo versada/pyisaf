@@ -10,7 +10,7 @@ import xml.etree.ElementTree
 from pyisaf import ISAF1_2Builder, schema_v1_2
 from pyisaf.builder.base import DATE_FORMAT
 
-from .data import isaf_data, purchase_invoices
+from .data import isaf_data, purchase_invoices, sales_invoices
 
 
 class TestISAF12Builder(unittest.TestCase):
@@ -164,3 +164,29 @@ class TestISAF12Builder(unittest.TestCase):
         invoice = self.builder._build_purchase_invoice(invoice)
         vat_point_date_elem = invoice.findall('./VATPointDate')[0]
         self.assertEqual(vat_point_date_elem.get('xsi:nil'), 'true')
+
+    def test_purchase_invoice_totals_amount_None_rendered_has_attr_xsi_nil(
+            self):
+        totals = copy.deepcopy(purchase_invoices[0]['document_totals'][0])
+        totals['amount'] = None
+
+        totals_elem = self.builder._build_purchase_invoice_total(totals)
+        amount_elem = totals_elem.findall('./Amount')[0]
+        self.assertEqual(amount_elem.get('xsi:nil'), 'true')
+
+    def test_sales_invoice_totals_amount_None_rendered_has_attr_xsi_nil(self):
+        totals = copy.deepcopy(sales_invoices[0]['document_totals'][0])
+        totals['amount'] = None
+
+        totals_elem = self.builder._build_sales_invoice_total(totals)
+        amount_elem = totals_elem.findall('./Amount')[0]
+        self.assertEqual(amount_elem.get('xsi:nil'), 'true')
+
+    def test_header_number_of_parts_None_rendered_has_attr_xsi_nil(self):
+        new_isaf_data = copy.deepcopy(isaf_data)
+        new_isaf_data['header']['file_description']['number_of_parts'] = None
+        new_isaf_data = schema_v1_2.validate(new_isaf_data)
+        builder = ISAF1_2Builder(new_isaf_data)
+        header_elem = builder._build_header()
+        nop_elem = header_elem.find('FileDescription/NumberOfParts')
+        self.assertEqual(nop_elem.get('xsi:nil'), 'true')

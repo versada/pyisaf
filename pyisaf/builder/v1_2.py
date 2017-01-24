@@ -6,12 +6,16 @@ from pyisaf.builder.base import DATE_FORMAT, ISAFBuilder
 from xml.etree.ElementTree import Element, SubElement
 
 
+def date_or_empty(v):
+    return '' if v is None else v.strftime(DATE_FORMAT)
+
+
 def int_or_empty(v):
     return '%d' % v if v else ''
 
 
-def date_or_empty(v):
-    return '' if v is None else v.strftime(DATE_FORMAT)
+def str_or_empty(v):
+    return '' if v is None else v
 
 
 def date_or_nil(elem, value):
@@ -21,8 +25,18 @@ def date_or_nil(elem, value):
         elem.text = value.strftime(DATE_FORMAT)
 
 
-def str_or_empty(v):
-    return '' if v is None else v
+def int_or_nil(elem, value):
+    if value is None:
+        elem.set('xsi:nil', 'true')
+    else:
+        elem.text = '%d' % value
+
+
+def str_or_nil(elem, value):
+    if value is None:
+        elem.set('xsi:nil', 'true')
+    else:
+        elem.text = value
 
 
 class ISAF1_2Builder(ISAFBuilder):
@@ -53,8 +67,8 @@ class ISAF1_2Builder(ISAFBuilder):
         SubElement(file_desc, 'RegistrationNumber').text = (
             int_or_empty(fd['registration_number'])
         )
-        SubElement(file_desc, 'NumberOfParts').text = int_or_empty(
-            fd['number_of_parts'])
+        int_or_nil(
+            SubElement(file_desc, 'NumberOfParts'), fd.get('number_of_parts'))
         SubElement(file_desc, 'PartNumber').text = fd['part_number']
 
         period = SubElement(file_desc, 'SelectionCriteria')
@@ -134,7 +148,7 @@ class ISAF1_2Builder(ISAFBuilder):
         rn = SubElement(elem, 'RegistrationNumber')
         if p.get('registration_number'):
             rn.text = p['registration_number']
-        SubElement(elem, 'Country').text = str_or_empty(p.get('country'))
+        str_or_nil(SubElement(elem, 'Country'), p.get('country'))
         SubElement(elem, 'Name').text = str_or_empty(p.get('name'))
         return elem
 
@@ -159,21 +173,19 @@ class ISAF1_2Builder(ISAFBuilder):
     def _build_purchase_invoice_total(self, t):
         elem = Element('DocumentTotal')
         SubElement(elem, 'TaxableValue').text = t['taxable_value']
-        SubElement(elem, 'TaxCode').text = str_or_empty(t.get('tax_code'))
-        SubElement(elem, 'TaxPercentage').text = str_or_empty(
-            t.get('tax_percentage'))
-        SubElement(elem, 'Amount').text = str_or_empty(t.get('amount'))
+        str_or_nil(SubElement(elem, 'TaxCode'), t.get('tax_code'))
+        str_or_nil(SubElement(elem, 'TaxPercentage'), t.get('tax_percentage'))
+        str_or_nil(SubElement(elem, 'Amount'), t.get('amount'))
         return elem
 
     def _build_sales_invoice_total(self, t):
         elem = Element('DocumentTotal')
         SubElement(elem, 'TaxableValue').text = t['taxable_value']
-        SubElement(elem, 'TaxCode').text = str_or_empty(t.get('tax_code'))
-        SubElement(elem, 'TaxPercentage').text = str_or_empty(
-            t.get('tax_percentage'))
-        SubElement(elem, 'Amount').text = str_or_empty(t.get('amount'))
-        vat_point_date2_elem = SubElement(elem, 'VATPointDate2')
-        date_or_nil(vat_point_date2_elem, t.get('vat_point_date2'))
+        str_or_nil(SubElement(elem, 'TaxCode'), t.get('tax_code'))
+        str_or_nil(SubElement(elem, 'TaxPercentage'), t.get('tax_percentage'))
+        str_or_nil(SubElement(elem, 'Amount'), t.get('amount'))
+        date_or_nil(
+            SubElement(elem, 'VATPointDate2'), t.get('vat_point_date2'))
         return elem
 
     def _build_purchase_invoice(self, inv):
@@ -242,6 +254,6 @@ class ISAF1_2Builder(ISAFBuilder):
         SubElement(elem, 'RegistrationNumber').text = (
             cs['registration_number'] or ''
         )
-        SubElement(elem, 'Country').text = cs['country']
+        str_or_nil(SubElement(elem, 'Country'), cs.get('country'))
         SubElement(elem, 'Name').text = cs['name']
         return elem
