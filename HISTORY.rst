@@ -3,6 +3,16 @@
 History
 -------
 
+v0.1.7 (2017-01-24)
+~~~~~~~~~~~~~~~~~~~
+
+* Fixes rendering of elements which are nillable to set xsi:nil attribute
+
+v0.1.6 (2017-01-06)
+~~~~~~~~~~~~~~~~~~~
+
+* Adds Python 3.6 build
+
 v0.1.5 (2016-12-05)
 ~~~~~~~~~~~~~~~~~~~
 
