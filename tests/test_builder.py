@@ -181,3 +181,12 @@ class TestISAF12Builder(unittest.TestCase):
         totals_elem = self.builder._build_sales_invoice_total(totals)
         amount_elem = totals_elem.findall('./Amount')[0]
         self.assertEqual(amount_elem.get('xsi:nil'), 'true')
+
+    def test_header_number_of_parts_None_rendered_has_attr_xsi_nil(self):
+        new_isaf_data = copy.deepcopy(isaf_data)
+        new_isaf_data['header']['file_description']['number_of_parts'] = None
+        new_isaf_data = schema_v1_2.validate(new_isaf_data)
+        builder = ISAF1_2Builder(new_isaf_data)
+        header_elem = builder._build_header()
+        nop_elem = header_elem.find('FileDescription/NumberOfParts')
+        self.assertEqual(nop_elem.get('xsi:nil'), 'true')
