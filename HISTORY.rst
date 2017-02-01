@@ -3,6 +3,11 @@
 History
 -------
 
+v0.1.8 (2017-02-01)
+~~~~~~~~~~~~~~~~~~~
+
+* Updates links after repository transfer.
+
 v0.1.7 (2017-01-24)
 ~~~~~~~~~~~~~~~~~~~
 
