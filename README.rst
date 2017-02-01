@@ -5,16 +5,16 @@ pyisaf
 .. image:: https://img.shields.io/pypi/v/pyisaf.svg
         :target: https://pypi.python.org/pypi/pyisaf
 
-.. image:: https://img.shields.io/travis/naglis/pyisaf.svg
-        :target: https://travis-ci.org/naglis/pyisaf
+.. image:: https://img.shields.io/travis/versada/pyisaf.svg
+        :target: https://travis-ci.org/versada/pyisaf
 
-.. image:: https://codecov.io/gh/naglis/pyisaf/branch/master/graph/badge.svg
-  :target: https://codecov.io/gh/naglis/pyisaf
+.. image:: https://codecov.io/gh/versada/pyisaf/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/versada/pyisaf
 
 Python library for i.SAF VAT report generation.
 
 
-* GitHub: https://github.com/naglis/pyisaf
+* GitHub: https://github.com/versada/pyisaf
 * Free software: BSD license
 * Supported Python versions: 2.7, 3.5+
 
@@ -28,7 +28,7 @@ Usage
 -----
 
 A complete example of i.SAF data dict can be found `in the tests
-<https://github.com/naglis/pyisaf/blob/master/tests/data.py>`_.
+<https://github.com/versada/pyisaf/blob/master/tests/data.py>`_.
 
 .. code:: python
 

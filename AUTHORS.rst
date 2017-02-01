@@ -5,7 +5,7 @@ Credits
 Development Lead
 ----------------
 
-* Naglis Jonaitis <naglis@mailbox.org>
+* Naglis Jonaitis <naglis@versada.eu>
 
 Contributors
 ------------
