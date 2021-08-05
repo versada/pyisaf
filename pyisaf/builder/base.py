@@ -1,4 +1,5 @@
 import abc
+import typing
 from xml.etree import ElementTree
 
 from pyisaf.utils import pretty_print_xml
@@ -7,8 +8,8 @@ DATE_FORMAT = "%Y-%m-%d"
 
 
 class ISAFBuilder(metaclass=abc.ABCMeta):
-    ISAF_VERSION = None
-    namespaces = {}
+    ISAF_VERSION: typing.Optional[str] = None
+    namespaces: typing.Dict[str, str] = {}
 
     def __init__(self, isaf):
         self._isaf = isaf
