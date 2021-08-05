@@ -5,9 +5,6 @@ pyisaf
 .. image:: https://img.shields.io/pypi/v/pyisaf.svg
         :target: https://pypi.python.org/pypi/pyisaf
 
-.. image:: https://img.shields.io/travis/versada/pyisaf.svg
-        :target: https://travis-ci.org/versada/pyisaf
-
 .. image:: https://codecov.io/gh/versada/pyisaf/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/versada/pyisaf
 
