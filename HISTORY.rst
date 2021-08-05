@@ -9,6 +9,7 @@ v1.0.0 (unreleased)
 * Drops Python 2 and Python 3.5 support.
 * Removes Travis CI integration, switches to GitHub Actions.
 * Changes to use *poetry* and *pyproject.toml*.
+* Changes to user *pre-commit*.
 
 v0.1.8 (2017-02-01)
 ~~~~~~~~~~~~~~~~~~~
