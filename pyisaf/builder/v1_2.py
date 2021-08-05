@@ -1,6 +1,6 @@
-from pyisaf.builder.base import DATE_FORMAT, ISAFBuilder
-
 from xml.etree.ElementTree import Element, SubElement
+
+from pyisaf.builder.base import DATE_FORMAT, ISAFBuilder
 
 
 def date_or_empty(v):

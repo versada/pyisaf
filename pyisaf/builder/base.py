@@ -3,7 +3,6 @@ from xml.etree import ElementTree
 
 from pyisaf.utils import pretty_print_xml
 
-
 DATE_FORMAT = '%Y-%m-%d'
 
 

@@ -2,19 +2,14 @@ import datetime
 
 from schema import And, Optional, Or, Schema, Use
 
-from pyisaf.validators import (
-    non_negative,
-)
+from pyisaf.validators import non_negative
+
 from .types import (
     ISAFCountryCodeISO,
     ISAFDataType,
     ISAFDateType2,
     ISAFDateType3,
     ISAFDateType4,
-    ISAFPartNumberType,
-    ISAFRegistrationNumberType,
-    ISAFSpecialTaxationType,
-    ISAFTaxCodeType,
     ISAFlongtextType,
     ISAFlongtextTypeNotEmpty,
     ISAFmiddle1textType,
@@ -23,11 +18,14 @@ from .types import (
     ISAFmiddle2textTypeNotEmpty,
     ISAFmiddletextType,
     ISAFmonetaryType,
+    ISAFPartNumberType,
     ISAFquantityType,
+    ISAFRegistrationNumberType,
     ISAFshorttext1Type,
     ISAFshorttext2Type,
+    ISAFSpecialTaxationType,
+    ISAFTaxCodeType,
 )
-
 
 selection_criteria = Schema({
     'selection_start_date': datetime.date,

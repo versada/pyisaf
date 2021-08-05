@@ -34,6 +34,10 @@ repos:
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
+-   repo: https://github.com/pycqa/isort
+    rev: 5.9.3
+    hooks:
+      - id: isort
 -   repo: https://gitlab.com/pycqa/flake8
     rev: 3.9.2
     hooks:

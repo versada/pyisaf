@@ -8,7 +8,6 @@ import datetime
 
 from schema import And, Or, Regex, Schema, Use
 
-from .const import DATA_TYPES, INVOICE_TYPES, SETTLEMENT_TYPES
 from pyisaf.validators import (
     decimal,
     max_int_digits,
@@ -16,6 +15,8 @@ from pyisaf.validators import (
     min_length,
     non_negative,
 )
+
+from .const import DATA_TYPES, INVOICE_TYPES, SETTLEMENT_TYPES
 
 ISAFDataType = Schema(Or(*DATA_TYPES))
 ISAFlongtextType = Schema(And(str, max_length(256)))
