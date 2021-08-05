@@ -1,35 +1,38 @@
+import datetime
+import typing
+
 from xml.etree.ElementTree import Element, SubElement  # nosec
 
 from pyisaf.builder.base import DATE_FORMAT, ISAFBuilder
 
 
-def date_or_empty(v):
+def date_or_empty(v: typing.Optional[datetime.date]) -> str:
     return "" if v is None else v.strftime(DATE_FORMAT)
 
 
-def int_or_empty(v):
+def int_or_empty(v: typing.Optional[int]) -> str:
     return "%d" % v if v else ""
 
 
-def str_or_empty(v):
+def str_or_empty(v: typing.Optional[str]) -> str:
     return "" if v is None else v
 
 
-def date_or_nil(elem, value):
+def date_or_nil(elem: Element, value: typing.Optional[datetime.date]) -> None:
     if value is None:
         elem.set("xsi:nil", "true")
     else:
         elem.text = value.strftime(DATE_FORMAT)
 
 
-def int_or_nil(elem, value):
+def int_or_nil(elem: Element, value: typing.Optional[int]) -> None:
     if value is None:
         elem.set("xsi:nil", "true")
     else:
         elem.text = "%d" % value
 
 
-def str_or_nil(elem, value):
+def str_or_nil(elem: Element, value: typing.Optional[str]) -> None:
     if value is None:
         elem.set("xsi:nil", "true")
     else:

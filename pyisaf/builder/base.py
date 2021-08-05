@@ -1,8 +1,6 @@
 import abc
 import typing
-from xml.etree import ElementTree  # nosec
-
-from pyisaf.utils import pretty_print_xml
+from xml.etree import ElementTree as ET  # nosec
 
 DATE_FORMAT = "%Y-%m-%d"
 
@@ -18,9 +16,9 @@ class ISAFBuilder(metaclass=abc.ABCMeta):
     def isaf(self):
         return self._isaf
 
-    def register_namespaces(self):
+    def register_namespaces(self) -> None:
         for prefix, uri in self.namespaces.items():
-            ElementTree.register_namespace(prefix, uri)
+            ET.register_namespace(prefix, uri)
 
     @abc.abstractmethod
     def _build_header(self):
@@ -34,7 +32,7 @@ class ISAFBuilder(metaclass=abc.ABCMeta):
     def _build_source_documents(self):
         """Builds and returns SourceDocuments element."""
 
-    def build_isaf_file(self):
+    def build_isaf_file(self) -> ET.Element:
         """Builds and returns the iSAFFile element."""
         self.register_namespaces()
 
@@ -42,7 +40,7 @@ class ISAFBuilder(metaclass=abc.ABCMeta):
         master_files = self._build_master_files()
         source_docs = self._build_source_documents()
 
-        isaf_file = ElementTree.Element("iSAFFile")
+        isaf_file = ET.Element("iSAFFile")
         for ns, url in self.namespaces.items():
             isaf_file.set("xmlns{extra}".format(extra=(f":{ns}" if ns else "")), url)
 
@@ -51,13 +49,23 @@ class ISAFBuilder(metaclass=abc.ABCMeta):
         isaf_file.append(source_docs)
         return isaf_file
 
-    def dumps(self, encoding="utf-8", pretty_print=True):
+    def dumps(self, *, pretty_print: bool = True) -> str:
         root = self.build_isaf_file()
-        xml_string = ElementTree.tostring(root, encoding=encoding)
         if pretty_print:
-            return pretty_print_xml(xml_string, encoding=encoding)
-        else:
-            return xml_string
+            ET.indent(root, space="\t")
+        return ET.tostring(root, encoding="unicode")
 
-    def dump(self, fobj, pretty_print=True, encoding="utf-8"):
-        fobj.write(self.dumps(encoding=encoding, pretty_print=pretty_print))
+    def dump(
+        self,
+        fobj: typing.BinaryIO,
+        *,
+        encoding: str = "utf-8",
+        pretty_print: bool = True,
+    ) -> None:
+        if encoding == "unicode":
+            raise ValueError("Invalid encoding, use `dumps`")
+        root = self.build_isaf_file()
+        if pretty_print:
+            ET.indent(root, space="\t")
+        tree = ET.ElementTree(element=root)
+        tree.write(fobj, encoding=encoding)

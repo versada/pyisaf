@@ -1,13 +1,7 @@
-import xml.dom.minidom  # nosec
+import typing
 
 
-def _pretty_print_xml(s, encoding="utf-8"):
-    # We use `parseString` to parse XML data built by us, so consider it trusted.
-    root = xml.dom.minidom.parseString(s)  # nosec
-    return root.toprettyxml(encoding=encoding)
-
-
-def int_to_digits(number):
+def int_to_digits(number: int) -> typing.List[int]:
     number = abs(number)
     if not isinstance(number, int):
         raise TypeError("Only integers are supported")

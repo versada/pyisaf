@@ -10,6 +10,7 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Natural Language :: English",
+    "Typing :: Typed",
 ]
 
 [tool.poetry.urls]
