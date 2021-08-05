@@ -1,6 +1,6 @@
 import abc
 import typing
-from xml.etree import ElementTree
+from xml.etree import ElementTree  # nosec
 
 from pyisaf.utils import pretty_print_xml
 

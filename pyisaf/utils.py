@@ -1,8 +1,9 @@
-import xml.dom.minidom
+import xml.dom.minidom  # nosec
 
 
-def pretty_print_xml(s, encoding="utf-8"):
-    root = xml.dom.minidom.parseString(s)
+def _pretty_print_xml(s, encoding="utf-8"):
+    # We use `parseString` to parse XML data built by us, so consider it trusted.
+    root = xml.dom.minidom.parseString(s)  # nosec
     return root.toprettyxml(encoding=encoding)
 
 

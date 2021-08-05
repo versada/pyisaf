@@ -1,4 +1,4 @@
-from xml.etree.ElementTree import Element, SubElement
+from xml.etree.ElementTree import Element, SubElement  # nosec
 
 from pyisaf.builder.base import DATE_FORMAT, ISAFBuilder
 
