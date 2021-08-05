@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "pyisaf"
+version = "0.1.8"
+description = "Python library for i.SAF VAT report generation"
+authors = ["Naglis Jonaitis <naglis@versada.eu>"]
+license = "BSD"
+readme = "README.rst"
+repository = "https://github.com/versada/pyisaf"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/versada/pyisaf/issues"
+
+[tool.poetry.dependencies]
+python = "^2.7 || ^3.5"
+schema = "^0.6.5"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^2.6.0"
+tox = "^2.5.0"
+bumpversion = "^0.5"
+twine = "^1.8"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
