@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 import abc
@@ -10,8 +9,7 @@ from pyisaf.utils import pretty_print_xml
 DATE_FORMAT = '%Y-%m-%d'
 
 
-class ISAFBuilder:
-    __metaclass__ = abc.ABCMeta
+class ISAFBuilder(metaclass=abc.ABCMeta):
     ISAF_VERSION = None
     namespaces = {}
 

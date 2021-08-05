@@ -1,12 +1,11 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
-import datetime
-
 '''
 The test data is prepared based on the example i.SAF XML, provided by VMI:
 https://www.vmi.lt/cms/documents/10162/9052063/isaf_xml_pavyzdys_20160922.xml
 '''
+
+from __future__ import unicode_literals
+
+import datetime
 
 header = {
     'file_description': {

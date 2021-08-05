@@ -1,17 +1,6 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import sys
 import xml.dom.minidom
-
-PY3 = sys.version_info[0] == 3
-
-if PY3:
-    ustr = str
-    int_types = int
-else:  # pragma: no cover
-    ustr = unicode  # noqa
-    int_types = (int, long)  # noqa
 
 
 def pretty_print_xml(s, encoding='utf-8'):
@@ -21,7 +10,7 @@ def pretty_print_xml(s, encoding='utf-8'):
 
 def int_to_digits(number):
     number = abs(number)
-    if not isinstance(number, int_types):
+    if not isinstance(number, int):
         raise TypeError('Only integers are supported')
     if number == 0:
         return [0]
