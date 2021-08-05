@@ -4,7 +4,6 @@ from pyisaf.utils import int_to_digits
 
 
 class TestUtils(unittest.TestCase):
-
     def test_int_to_digits_1230_returns_1_2_3_0(self):
         self.assertEqual(int_to_digits(1230), [1, 2, 3, 0])
 
