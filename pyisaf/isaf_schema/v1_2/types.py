@@ -3,7 +3,6 @@ Custom data types defined in the i.SAF v1.2 XSD:
 http://www.vmi.lt/cms/documents/10162/9117564/isaf_1.2.xsd/02cadf68-5fe0-4684-bbeb-16feddbf1fdc
 '''
 
-from __future__ import unicode_literals
 
 import datetime
 

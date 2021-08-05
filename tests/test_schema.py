@@ -1,4 +1,3 @@
-
 import unittest
 
 from pyisaf import schema_v1_2

@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import datetime
 
 from schema import And, Optional, Or, Schema, Use

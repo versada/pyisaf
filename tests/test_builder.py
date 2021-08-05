@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import copy
 import datetime
 import io
@@ -15,7 +13,7 @@ from .data import isaf_data, purchase_invoices, sales_invoices
 class TestISAF12Builder(unittest.TestCase):
 
     def setUp(self):
-        super(TestISAF12Builder, self).setUp()
+        super().setUp()
         self.start_date = datetime.datetime(2016, 10, 1)
         self.end_date = datetime.datetime(2016, 10, 31)
         self.isaf = schema_v1_2.validate(isaf_data)
@@ -25,7 +23,7 @@ class TestISAF12Builder(unittest.TestCase):
         try:
             tag = element.findall(xpath)[0]
         except IndexError:
-            self.fail('Tag not found at xpath: {}'.format(xpath))
+            self.fail(f'Tag not found at xpath: {xpath}')
         self.assertEqual(tag.text, text, msg=msg)
 
     def test_build_header_sets_file_version(self):

@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import abc
 from xml.etree import ElementTree
 
@@ -47,7 +45,7 @@ class ISAFBuilder(metaclass=abc.ABCMeta):
         isaf_file = ElementTree.Element('iSAFFile')
         for ns, url in self.namespaces.items():
             isaf_file.set(
-                'xmlns{extra}'.format(extra=(':{0}'.format(ns) if ns else '')),
+                'xmlns{extra}'.format(extra=(f':{ns}' if ns else '')),
                 url
             )
 

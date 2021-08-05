@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from pyisaf.builder.base import DATE_FORMAT, ISAFBuilder
 
 from xml.etree.ElementTree import Element, SubElement
